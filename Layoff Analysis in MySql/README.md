@@ -63,6 +63,20 @@ FROM layoffs_working;
 DELETE FROM LAYOFFS_WORKING1 WHERE ROW_NO > 1;
 ````
 ### 4. Standardizing Data.
+Now we will do the data cleaning.
+- First of all I run query to see names of all companies and to check if there are any inconsistencies.
+````sql
+SELECT DISTINCT(company), trim(company) FROM LAYOFFS_WORKING1;
+````
+Few company name have blank space in the begining
+
+![Trim_SC](https://github.com/user-attachments/assets/7ee6a367-b816-406c-808b-1a3a9e0ee2b4)
+
+To remove the space i used trim function and update the table:
+````sql
+UPDATE LAYOFFS_WORKING1 SET COMPANY = TRIM(COMPANY);
+````
+![UpdatedTBL_SC](https://github.com/user-attachments/assets/7263eca4-14ee-42b8-b3de-7792950017cc)
 
 
 
