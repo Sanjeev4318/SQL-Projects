@@ -31,8 +31,10 @@ INSERT INTO layoffs_working SELECT *FROM layoffs;
 ````
 ### 3. Check and removing duplicates.
 > [!NOTE]
-> To remove the duplicate first we need to add unique identifier column.
-> We can do that using ROW_NUMBER() function
+>To remove the duplicate first we need below steps:
+ 
+- First we need to add unique identifier column. We can do that using ROW_NUMBER() function
+
 ````sql
 WITH CTE_DUPLICATE AS 
 ( SELECT *, row_number() OVER(PARTITION BY COMPANY,LOCATION,INDUSTRY,TOTAL_LAID_OFF,`DATE`,PERCENTAGE_LAID_OFF) AS row_no
@@ -42,6 +44,26 @@ WITH CTE_DUPLICATE AS
 ````
 Result: Below screenshot shows the duplicate rows that needs to be deleted
 ![Duplicate_SC](https://github.com/user-attachments/assets/c080e536-0b50-4ae8-8208-0612d1c09251)
+
+- Now we need to create a table layoffs_working1 including column row_no:
+````sql
+CREATE TABLE layoffs_working1 LIKE layoffs_working;
+alter table layoffs_working1 add column row_no int;
+````
+- Now copy the data from layoffs_working to layoffs_working1:
+````sql
+INSERT INTO LAYOFFS_WORKING1 
+SELECT *,
+row_number() OVER(PARTITION BY COMPANY,LOCATION,INDUSTRY,TOTAL_LAID_OFF,STAGE,COUNTRY,funds_raised_millions,`DATE`,PERCENTAGE_LAID_OFF)
+AS row_no
+FROM layoffs_working;
+````
+- Now delete the duplicates from layoffs_working1:
+````sql
+DELETE FROM LAYOFFS_WORKING1 WHERE ROW_NO > 1;
+````
+### 4. Standardizing Data.
+
 
 
 
