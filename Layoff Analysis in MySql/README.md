@@ -78,7 +78,16 @@ UPDATE LAYOFFS_WORKING1 SET COMPANY = TRIM(COMPANY);
 ````
 ![UpdatedTBL_SC](https://github.com/user-attachments/assets/7263eca4-14ee-42b8-b3de-7792950017cc)
 
+When checking the industry column i noticed Crypto is coming with three different name:
+````sql
+SELECT DISTINCT(INDUSTRY) FROM LAYOFFS_WORKING1;
+````
+![Industry_SC](https://github.com/user-attachments/assets/3b51a289-3d7c-4a11-9bd9-188af63250a8)
 
-
+To update it i used below query:
+````sql
+UPDATE LAYOFFS_WORKING1 SET INDUSTRY = "Crypto Currency"
+WHERE INDUSTRY LIKE "Crypto%";
+````
 
 
