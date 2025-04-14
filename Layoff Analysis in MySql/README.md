@@ -89,5 +89,8 @@ To update it i used below query:
 UPDATE LAYOFFS_WORKING1 SET INDUSTRY = "Crypto Currency"
 WHERE INDUSTRY LIKE "Crypto%";
 ````
+Result!
+
+![UpdatedIndust_SC](https://github.com/user-attachments/assets/110f1278-3f50-4cb1-9f8e-b96dcf14bada)
 
 
